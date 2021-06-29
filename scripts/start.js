@@ -23,7 +23,6 @@ const init = async () => {
             if (FILES.test(request.path)) {
                 return h.file(path.join(process.cwd(), 'dist', request.path))
             }
-            console.log(request.path)
 
             return h.file(path.join(process.cwd(), 'dist', PATH[request.path]))
         }
