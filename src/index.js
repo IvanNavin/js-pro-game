@@ -1,79 +1,140 @@
 import './index.scss';
-import SenseiWalk from './assets/sprites/famale/Female-3-Walk.png';
+import SenseiWalk from './assets/sprites/female/Female-3-Walk.png';
+import RickSanchez from './assets/sprites/male/Rick_Sanchez.png';
 import Pattern from './assets/pattern.jpg';
+import RicksPattern from './assets/sprites/ricks-pattern.jpg';
 
-const canvas = document.getElementById('game');
-const ctx = canvas.getContext('2d');
-const spriteW = 48;
-const spriteH = 48;
-const shots = 3;
-let cycle = 0;
-let bottomPressedUp = false;
-let bottomPressedRight = false;
-let bottomPressedDown = false;
-let bottomPressedLeft = false;
-let side = 0;
-let pY = 300;
-let pX = 300;
+class Game {
+  constructor() {
+    this.btns = document.querySelectorAll('[data-btn]');
+    this.canvas = document.getElementById('game');
+    this.canvasWidth = this.canvas.width;
+    this.canvasHeight = this.canvas.height;
+    this.ctx = this.canvas.getContext('2d');
+    this.isRick = true;
+    this.rick = document.createElement('img');
+    this.rick.src = RickSanchez;
+    this.female03 = document.createElement('img');
+    this.female03.src = SenseiWalk;
+    this.side = 0;
+    this.bottomPressedUp = false;
+    this.bottomPressedRight = false;
+    this.bottomPressedDown = false;
+    this.bottomPressedLeft = false;
+    this.spriteSamuraiH = 48;
+    this.spriteSamuraiW = 48;
+    this.spriteRickH = 165;
+    this.spriteRickW = 128;
+    this.pY = this.canvasHeight / 2 - this.spriteW() / 2;
+    this.pX = this.canvasWidth / 2 - this.spriteH() / 2;
+    this.shots = this.isRick ? 4 : 3;
+    this.cycle = 0;
+    // (600 / 2) - (128 / 2)
+    this.initListeners();
+  }
 
-function onKeyDown(e) {
-  if (e.key === 'Up' || e.key === 'ArrowUp') {
-    bottomPressedUp = true;
-    side = 144;
-  } else if (e.key === 'Right' || e.key === 'ArrowRight') {
-    bottomPressedRight = true;
-    side = 96;
-  } else if (e.key === 'Down' || e.key === 'ArrowDown') {
-    bottomPressedDown = true;
-    side = 0;
-  } else if (e.key === 'Lef' || e.key === 'ArrowLeft') {
-    bottomPressedLeft = true;
-    side = 48;
+  spriteW() {
+    return this.isRick ? this.spriteRickW : this.spriteSamuraiW;
+  }
+
+  spriteH() {
+    return this.isRick ? this.spriteRickH : this.spriteSamuraiH;
+  }
+
+  onKeyDown(e) {
+    if (e.key === 'Up' || e.key === 'ArrowUp') {
+      this.bottomPressedUp = true;
+      this.side = this.isRick ? 495 : 144;
+    } else if (e.key === 'Right' || e.key === 'ArrowRight') {
+      this.bottomPressedRight = true;
+      this.side = this.isRick ? 330 : 96;
+    } else if (e.key === 'Down' || e.key === 'ArrowDown') {
+      this.bottomPressedDown = true;
+      this.side = 0;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      this.bottomPressedLeft = true;
+      this.side = this.isRick ? 165 : 48;
+    }
+  }
+
+  onKeyUp(e) {
+    if (e.key === 'Up' || e.key === 'ArrowUp') {
+      this.bottomPressedUp = false;
+    } else if (e.key === 'Right' || e.key === 'ArrowRight') {
+      this.bottomPressedRight = false;
+    } else if (e.key === 'Down' || e.key === 'ArrowDown') {
+      this.bottomPressedDown = false;
+    } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
+      this.bottomPressedLeft = false;
+    }
+  }
+
+  move() {
+    if (this.bottomPressedUp && this.pY > 0) this.pY -= 10;
+    if (this.bottomPressedRight && this.pX < 600 - this.spriteW()) this.pX += 10;
+    if (this.bottomPressedDown && this.pY < 590 - this.spriteH()) this.pY += 10;
+    if (this.bottomPressedLeft && this.pX > 0) this.pX -= 10;
+    if (this.bottomPressedUp
+      || this.bottomPressedRight
+      || this.bottomPressedDown
+      || this.bottomPressedLeft) {
+      this.cycle = (this.cycle + 1) % this.shots;
+    }
+  }
+
+  choiceHero(e) {
+    const { target } = e;
+    this.isRick = target.classList.contains('rick');
+    this.side = 0;
+    this.shots = this.isRick ? 4 : 3;
+    this.draw();
+  }
+
+  initListeners() {
+    document.addEventListener('keydown', this.onKeyDown.bind(this));
+    document.addEventListener('keyup', this.onKeyUp.bind(this));
+    this.btns.forEach((btn) => btn.addEventListener('click', this.choiceHero.bind(this)));
+  }
+
+  customDrawImg(img) {
+    return this.ctx.drawImage(
+      img,
+      this.cycle * this.spriteW(),
+      this.side,
+      this.spriteW(),
+      this.spriteH(),
+      this.pX,
+      this.pY,
+      this.spriteW(),
+      this.spriteH(),
+    );
+  }
+
+  draw() {
+    this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.ctx.fillRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.ctx.strokeRect(0, 0, this.canvasWidth, this.canvasHeight);
+    this.customDrawImg(this.isRick ? this.rick : this.female03);
+  }
+
+  init() {
+    const pattern = document.createElement('img');
+    pattern.src = this.isRick ? RicksPattern : Pattern;
+
+    window.addEventListener('load', () => {
+      const background = this.ctx.createPattern(pattern, 'repeat');
+
+      document.querySelector('h3').innerText = '';
+
+      setInterval(() => {
+        this.move();
+        this.ctx.fillStyle = background;
+        this.draw();
+      }, 60);
+    });
   }
 }
 
-function onKeyUp(e) {
-  if (e.key === 'Up' || e.key === 'ArrowUp') {
-    bottomPressedUp = false;
-  } else if (e.key === 'Right' || e.key === 'ArrowRight') {
-    bottomPressedRight = false;
-  } else if (e.key === 'Down' || e.key === 'ArrowDown') {
-    bottomPressedDown = false;
-  } else if (e.key === 'Lef' || e.key === 'ArrowLeft') {
-    bottomPressedLeft = false;
-  }
-}
+const game = new Game();
 
-function move() {
-  if (bottomPressedUp && pY > 0) pY -= 10;
-  if (bottomPressedRight && pX < 600 - spriteW) pX += 10;
-  if (bottomPressedDown && pY < 600 - spriteW) pY += 10;
-  if (bottomPressedLeft && pX > 0) pX -= 10;
-  if (bottomPressedUp || bottomPressedRight || bottomPressedDown || bottomPressedLeft) {
-    cycle = (cycle + 1) % shots;
-  }
-}
-
-document.addEventListener('keydown', onKeyDown);
-document.addEventListener('keyup', onKeyUp);
-
-const hero = document.createElement('img');
-hero.src = SenseiWalk;
-
-const pattern = document.createElement('img');
-pattern.src = Pattern;
-
-window.addEventListener('load', () => {
-  const background = ctx.createPattern(pattern, 'repeat');
-
-  document.querySelector('h3').innerText = '';
-
-  setInterval(() => {
-    move();
-    ctx.clearRect(0, 0, 600, 600);
-    ctx.fillStyle = background;
-    ctx.fillRect(0, 0, 600, 600);
-    ctx.strokeRect(0, 0, 600, 600);
-    ctx.drawImage(hero, cycle * spriteW, side, spriteW, spriteH, pX, pY, spriteW, spriteH);
-  }, 60);
-});
+game.init();
