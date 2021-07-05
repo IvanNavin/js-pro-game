@@ -74,10 +74,7 @@ class Game {
     if (this.bottomPressedRight && this.pX < 600 - this.spriteW()) this.pX += 10;
     if (this.bottomPressedDown && this.pY < 590 - this.spriteH()) this.pY += 10;
     if (this.bottomPressedLeft && this.pX > 0) this.pX -= 10;
-    if (this.bottomPressedUp
-      || this.bottomPressedRight
-      || this.bottomPressedDown
-      || this.bottomPressedLeft) {
+    if (this.bottomPressedUp || this.bottomPressedRight || this.bottomPressedDown || this.bottomPressedLeft) {
       this.cycle = (this.cycle + 1) % this.shots;
     }
   }
