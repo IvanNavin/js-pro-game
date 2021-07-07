@@ -10,10 +10,13 @@ html,
 body {
   padding: 0;
   margin: 0;
+  background: #000;
 }
 
 body {
   min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
@@ -40,6 +43,11 @@ body {
   align-items: center;
   font-family: 'Big Shoulders Stencil Display', cursive;
   font-size: 38px;
+
+  @media all and (max-width: 600px) {
+    transform: scale(0.5);
+    margin-top: -50%;
+  }
 }
 
 .canvas-wrap canvas {
@@ -137,4 +145,24 @@ body {
   bottom: 0;
   left: 0;
   z-index: 100;
+}
+
+.choiсe {
+  display: flex;
+  align-self: flex-start;
+  margin-left: 16px;
+  .btn {
+    width: 48px;
+    height: 48px;
+    background-size: cover;
+    margin-right: 16px;
+
+    &.rick {
+      background-image: url(./assets/iconRick.png);
+    }
+
+    &.female03 {
+      background-image: url(./assets/female03.png);
+    }
+  }
 }
