@@ -1,7 +1,7 @@
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 
-const NODE_ENV = process.env.NODE_ENV;
+const { NODE_ENV } = process.env;
 
 module.exports = {
   mode: NODE_ENV || 'development',
@@ -25,23 +25,23 @@ module.exports = {
       {
         test: /\.scss$/,
         use: [
-            'style-loader',
-            'css-loader',
-            'sass-loader',
-        ]
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
       {
         test: [/\.svg$/, /\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'assets/'
-            }
-          }
-        ]
-      }
+              outputPath: 'assets/',
+            },
+          },
+        ],
+      },
     ],
   },
   plugins: [
