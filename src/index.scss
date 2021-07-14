@@ -20,7 +20,7 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-image: url(./assets/Rick-And-Morty-BG.jpg);
+  background-image: url(./assets/Mountains1.png);
 }
 
 .wrap {
@@ -145,24 +145,4 @@ body {
   bottom: 0;
   left: 0;
   z-index: 100;
-}
-
-.choiсe {
-  display: flex;
-  align-self: flex-start;
-  margin-left: 16px;
-  .btn {
-    width: 48px;
-    height: 48px;
-    background-size: cover;
-    margin-right: 16px;
-
-    &.rick {
-      background-image: url(./assets/iconRick.png);
-    }
-
-    &.female03 {
-      background-image: url(./assets/female03.png);
-    }
-  }
 }
