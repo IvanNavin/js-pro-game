@@ -24,12 +24,12 @@ class ClientCell extends PositionedObject {
 
   initGameObjects() {
     const { cellCfg } = this;
-    function clientGameObjects(layer, layerId) {
-      return layer.map(function (objCfg) {
+    function layers(layer, layerId) {
+      return layer.map(function clientGameObjects(objCfg) {
         return new ClientGameObject({ cell: this, objCfg, layerId });
       });
     }
-    this.objects = cellCfg.map(clientGameObjects);
+    this.objects = cellCfg.map(layers);
   }
 
   render(time, layerId) {
