@@ -15,6 +15,7 @@ module.exports = {
     'max-len': ['error', { code: 120, comments: 140 }],
     'no-bitwise': "off",
     "no-return-assign": "off",
-    "no-plusplus": "off"
+    "no-plusplus": "off",
+    "no-param-reassign": "off",
   },
 };
