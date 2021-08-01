@@ -23,17 +23,22 @@ class ClientGame {
   }
 
   createEngine() {
-    return new ClientEngine(document.getElementById(this.cfg.worldId));
+    return new ClientEngine(document.getElementById(this.cfg.worldId), this);
   }
 
   createWorld() {
     return new ClientWorld(this, this.engine, levelCfg);
   }
 
+  getWorld() {
+    return this.world;
+  }
+
   initEngine() {
     this.engine.loadSprites(sprites).then(() => {
       this.world.init();
       this.engine.on('render', (_, time) => {
+        this.engine.camera.focusGameObject(this.player);
         this.world.render(time);
       });
       this.engine.start();
@@ -41,16 +46,36 @@ class ClientGame {
     });
   }
 
-  moveByCell(dcol, drow) {
-    this.player.moveByCellCoord(dcol, drow, (cell) => cell.findObjectsByType('grass').length);
+  movePlayerToDir(dir) {
+    const dirs = {
+      up: [0, -1],
+      right: [1, 0],
+      down: [0, 1],
+      left: [-1, 0],
+    };
+
+    const { player } = this;
+
+    if (player && player.motionProgress === 1) {
+      const canMovie = player.moveByCellCoord(
+        dirs[dir][0],
+        dirs[dir][1],
+        (cell) => cell.findObjectsByType('grass').length,
+      );
+
+      if (canMovie) {
+        player.setState(dir);
+        player.once('motion-stopped', () => player.setState('main'));
+      }
+    }
   }
 
   initKeys() {
     this.engine.input.onKey({
-      ArrowUp: (keydown) => keydown && this.moveByCell(0, -1),
-      ArrowRight: (keydown) => keydown && this.moveByCell(1, 0),
-      ArrowDown: (keydown) => keydown && this.moveByCell(0, 1),
-      ArrowLeft: (keydown) => keydown && this.moveByCell(-1, 0),
+      ArrowUp: (keydown) => keydown && this.movePlayerToDir('up'),
+      ArrowRight: (keydown) => keydown && this.movePlayerToDir('right'),
+      ArrowDown: (keydown) => keydown && this.movePlayerToDir('down'),
+      ArrowLeft: (keydown) => keydown && this.movePlayerToDir('left'),
     });
   }
 

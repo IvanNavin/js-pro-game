@@ -12,9 +12,9 @@ export default {
     this.pushEvent(event, [false, callback]);
   },
 
-  un(event, subToUn) {
+  un(event, callback) {
     const subs = this.subscribers;
-    if (subs && subs[event]) subs[event] = subs[event].filter((sub) => sub !== subToUn);
+    if (subs && subs[event]) subs[event] = subs[event].filter((sub) => sub !== callback);
   },
 
   trigger(event, data = null) {
