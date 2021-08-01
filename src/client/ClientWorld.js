@@ -24,12 +24,10 @@ class ClientWorld extends PositionedObject {
   }
 
   init() {
-    const {
-      levelCfg, map, worldWidth, worldHeight,
-    } = this;
+    const { levelCfg, map, worldWidth, worldHeight } = this;
 
-    for (let row = 0; row < worldWidth; row += 1) {
-      for (let col = 0; col < worldHeight; col += 1) {
+    for (let row = 0; row < worldHeight; row++) {
+      for (let col = 0; col < worldWidth; col++) {
         if (!map[row]) {
           map[row] = [];
         }
@@ -45,13 +43,11 @@ class ClientWorld extends PositionedObject {
   }
 
   render(time) {
-    const {
-      levelCfg, map, worldWidth, worldHeight,
-    } = this;
+    const { levelCfg, map, worldWidth, worldHeight } = this;
 
-    for (let layerId = 0; layerId < levelCfg.layers.length; layerId += 1) {
-      for (let row = 0; row < worldHeight; row += 1) {
-        for (let col = 0; col < worldWidth; col += 1) {
+    for (let layerId = 0; layerId < levelCfg.layers.length; layerId++) {
+      for (let row = 0; row < worldHeight; row++) {
+        for (let col = 0; col < worldWidth; col++) {
           map[row][col].render(time, layerId);
         }
       }

@@ -6,18 +6,16 @@ class ClientEngine {
   constructor(canvas, game) {
     Object.assign(this, {
       canvas,
-      ctx: null,
+      ctx: canvas.getContext('2d'),
       imageLoaders: [],
       sprites: {},
       images: {},
       camera: new ClientCamera({ canvas, engine: this }),
       input: new ClientInput(canvas),
       game,
-      lastRenderTime: 0,
       startTime: 0,
+      lastRenderTime: 0,
     });
-
-    this.ctx = canvas.getContext('2d');
 
     this.loop = this.loop.bind(this);
   }
@@ -32,6 +30,7 @@ class ClientEngine {
     }
 
     this.lastRenderTime = timestamp;
+
     const { ctx, canvas } = this;
     ctx.fillStyle = 'black';
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -71,9 +70,7 @@ class ClientEngine {
     });
   }
 
-  renderSpriteFrame({
-    sprite, frame, x, y, w, h,
-  }) {
+  renderSpriteFrame({ sprite, frame, x, y, w, h }) {
     const spriteCfg = this.sprites[sprite[0]][sprite[1]];
     const [fx, fy, fw, fh] = spriteCfg.frames[frame];
     const img = this.images[spriteCfg.img];

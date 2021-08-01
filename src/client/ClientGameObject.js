@@ -5,9 +5,7 @@ class ClientGameObject extends MovableObject {
   constructor(cfg) {
     super();
 
-    const {
-      x, y, width, height,
-    } = cfg.cell;
+    const { x, y, width, height } = cfg.cell;
 
     const { world } = cfg.cell;
     const gameObjs = world.game.gameObjects;
@@ -73,7 +71,7 @@ class ClientGameObject extends MovableObject {
     const state = this.spriteCfg.states[this.state];
     const lengthFrame = state.frames.length;
     const animate = animateEx(lengthFrame, this.animationStartTime, time, state.duration, true);
-    const frame = Math.floor(lengthFrame + animate.offset) % lengthFrame;
+    const frame = ((lengthFrame + animate.offset) | 0) % lengthFrame;
 
     return state.frames[frame];
   }
@@ -81,9 +79,7 @@ class ClientGameObject extends MovableObject {
   render(time) {
     super.render(time);
 
-    const {
-      x, y, width, height, world,
-    } = this;
+    const { x, y, width, height, world } = this;
     const { engine } = world;
 
     const { sprite, frame, type } = this.spriteCfg;

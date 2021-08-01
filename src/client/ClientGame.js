@@ -23,7 +23,7 @@ class ClientGame {
   }
 
   createEngine() {
-    return new ClientEngine(document.getElementById(this.cfg.worldId), this);
+    return new ClientEngine(document.getElementById(this.cfg.tagID), this);
   }
 
   createWorld() {
