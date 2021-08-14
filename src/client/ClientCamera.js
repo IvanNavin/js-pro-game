@@ -2,7 +2,7 @@ import MovableObject from '../common/MovableObject';
 
 class ClientCamera extends MovableObject {
   constructor(cfg) {
-    super();
+    super(cfg);
 
     Object.assign(
       this,
