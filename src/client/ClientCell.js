@@ -18,7 +18,9 @@ class ClientCell extends PositionedObject {
         height: cellHeight,
         col: cfg.cellCol,
         row: cfg.cellRow,
-        objectClasses: { player: ClientPlayer },
+        objectClasses: {
+          player: ClientPlayer,
+        },
       },
       cfg,
     );
@@ -31,18 +33,19 @@ class ClientCell extends PositionedObject {
 
     this.objects = cellCfg.map((layer, layerId) =>
       layer.map((objCfg) => {
-        let ObjectClasses;
+        let ObjectClass;
 
         if (objCfg.class) {
-          ObjectClasses = objectClasses[objCfg.class];
+          ObjectClass = objectClasses[objCfg.class];
         } else {
-          ObjectClasses = ClientGameObject;
+          ObjectClass = ClientGameObject;
         }
 
-        return new ObjectClasses({
+        return new ObjectClass({
           cell: this,
           objCfg,
           layerId,
+          playerName: this.world.game.cfg?.playerName,
         });
       }),
     );
