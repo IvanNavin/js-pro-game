@@ -17,5 +17,7 @@ module.exports = {
     "no-return-assign": "off",
     "no-plusplus": "off",
     "no-param-reassign": "off",
+    "class-methods-use-this": "off",
+    "no-unused-expressions": "off",
   },
 };
