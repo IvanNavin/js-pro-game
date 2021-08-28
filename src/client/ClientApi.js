@@ -23,13 +23,13 @@ class ClientApi {
   }
 
   onWelcome(serverStatus) {
-    console.log('Server is online ', serverStatus);
+    window.console.log('Server is online ', serverStatus);
   }
 
   onJoin(player) {
     this.game.createCurrentPlayer(player.player);
     this.game.setPlayers(player.playersList);
-    console.log('JOINED A GAME', player);
+    window.console.log('JOINED A GAME', player);
   }
 
   onNewPlayer(player) {
