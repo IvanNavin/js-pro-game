@@ -16,9 +16,9 @@ class PositionedObject {
   }
 
   /**
-   * Координаты объекта в мире
-   * @param {int} offsetPercentX Сдвиг относительно верхнего левого угла в процентах от размера объекта
-   * @param {int} offsetPercentY Сдвиг относительно верхнего левого угла в процентах от размера объекта
+   * object coordinates in the world
+   * @param {int} offsetPercentX Shift relative to the upper left corner as a percentage of the object size
+   * @param {int} offsetPercentY Shift relative to the upper left corner as a percentage of the object size
    */
   worldPosition(offsetPercentX = 0, offsetPercentY = 0) {
     return {
@@ -38,9 +38,9 @@ class PositionedObject {
   }
 
   /**
-   * Координаты объекта относительно окна отображения (канваса)
-   * @param {int} offsetPercentX Сдвиг относительно верхнего левого угла в процентах от размера объекта
-   * @param {int} offsetPercentY Сдвиг относительно верхнего левого угла в процентах от размера объекта
+   * Coordinates of the object relative to the display window (canvas)
+   * @param {int} offsetPercentX Shift relative to the upper left corner as a percentage of the object size
+   * @param {int} offsetPercentY Shift relative to the upper left corner as a percentage of the object size
    */
   canvasPosition(offsetPercentX = 0, offsetPercentY = 0) {
     const pos = this.worldPosition(offsetPercentX, offsetPercentY);

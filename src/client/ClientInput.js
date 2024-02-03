@@ -4,9 +4,9 @@ class ClientInput {
   constructor(canvas) {
     Object.assign(this, {
       canvas,
-      keysPressed: new Set(), // клавиши, зажатые в данный момент
-      keyStateHandlers: {}, // обработчики, срабатывающие каждый рендер, если нажата клавиша
-      keyHandlers: {}, // обработчики при нажатии определенной клавиши
+      keysPressed: new Set(), // currently held keys
+      keyStateHandlers: {}, // handlers that fire every render if a key is pressed
+      keyHandlers: {}, // handlers when a specific key is pressed
     });
     canvas.addEventListener('keydown', (e) => this.onKeyDown(e), false);
     canvas.addEventListener('keyup', (e) => this.onKeyUp(e), false);

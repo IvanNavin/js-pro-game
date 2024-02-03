@@ -20,9 +20,9 @@ export default {
   trigger(event, data = null) {
     const subs = this.subscribers;
     if (subs && subs[event]) {
-      // вызываем все обработчики
+      // call all handlers
       subs[event].forEach((sub) => sub[1](event, data, this));
-      // удаляем все одноразовые обработчики
+      // remove all one time handlers
       subs[event] = subs[event].filter((sub) => sub[0]);
     }
   },

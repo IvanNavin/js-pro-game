@@ -18,13 +18,12 @@ class MovableObject extends PositionedObject {
         motionStartTime: 0,
         motionProgress: 1,
 
-        clampToMap: true, // по умолчанию объект не должен вылетать за пределы карты
+        clampToMap: true, // by default the object should not fly off the map
       },
       cfg,
     );
   }
 
-  // eslint-disable-next-line no-unused-vars
   animateMotion(time) {
     if (this.speed) {
       const me = this;
@@ -61,8 +60,8 @@ class MovableObject extends PositionedObject {
     if (this.clampToMap && this.engine) {
       const world = this.engine.game.getWorld();
       if (world) {
-        // Делаем, чтобы камера не выходила за пределы мира
-        // левый верхний угол
+        // Make sure that the camera does not go beyond the boundaries of the world
+        // upper left corner
         newX = clamp(x, 0, world.width - width);
         newY = clamp(y, 0, world.height - height);
       }

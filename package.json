@@ -1,5 +1,5 @@
 {
-  "name": "JSPROGAME",
+  "name": "RPG_GAME",
   "version": "1.0.0",
   "description": "RPG Game",
   "engines": {
@@ -18,12 +18,8 @@
     "type": "git",
     "url": "git+https://github.com/IvanNavin/js-pro-game.git"
   },
-  "author": "IvanNavin",
+  "author": "Holovko Ivan",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/IvanNavin/js-pro-game/issues"
-  },
-  "homepage": "https://github.com/IvanNavin/js-pro-game#readme",
   "devDependencies": {
     "eslint": "^7.29.0",
     "eslint-config-airbnb-base": "^14.2.1",

@@ -4,11 +4,11 @@ import ClientGame from './client/ClientGame';
 import { getTime } from './common/util';
 
 window.addEventListener('load', async () => {
-  const world = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/world').then((r) => r.json());
-  const sprites = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/sprites').then((r) => r.json());
-  const gameObjects = await fetch('https://jsmarathonpro.herokuapp.com/api/v1/gameObjects').then((r) => r.json());
+  const world = await fetch('https://rpg-game-backend.vercel.app/api/v1/world').then((r) => r.json());
+  const sprites = await fetch('https://rpg-game-backend.vercel.app/api/v1/sprites').then((r) => r.json());
+  const gameObjects = await fetch('https://rpg-game-backend.vercel.app/api/v1/gameObjects').then((r) => r.json());
 
-  const socket = io('https://jsprochat.herokuapp.com/');
+  const socket = io('https://rpg-game-chat.vercel.app/');
   // const socket = io('http://localhost:3001');
   const startGame = document.querySelector('.start-game');
   const nameForm = document.getElementById('nameForm');
