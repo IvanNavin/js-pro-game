@@ -8,7 +8,7 @@ window.addEventListener('load', async () => {
   const sprites = await fetch('https://rpg-game-backend.vercel.app/api/v1/sprites').then((r) => r.json());
   const gameObjects = await fetch('https://rpg-game-backend.vercel.app/api/v1/gameObjects').then((r) => r.json());
 
-  const socket = io('https://rpg-game-chat.vercel.app/');
+  const socket = io('https://rpg-game-chat-e5f88ef985f2.herokuapp.com/');
   // const socket = io('http://localhost:3001');
   const startGame = document.querySelector('.start-game');
   const nameForm = document.getElementById('nameForm');
